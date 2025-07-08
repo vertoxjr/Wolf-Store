@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wolf Store - Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2e0fc6bd8.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --red: #ff1a1a;
+      --dark: #0b0b0b;
+      --light: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    body.page-loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      background: rgba(192, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .logo {
+      color: white;
+      font-weight: 600;
+      font-size: 24px;
+    }
+
+    #nav-button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    #nav-button:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    #dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      border-radius: 8px;
+      margin-top: 10px;
+      min-width: 150px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      display: none;
+      flex-direction: column;
+      z-index: 10000;
+    }
+
+    #dropdown.active {
+      display: flex;
+    }
+
+    #dropdown a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-bottom: 1px solid #333;
+      transition: background 0.3s;
+    }
+
+    #dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    #dropdown a:hover {
+      background: var(--red);
+    }
+
+    main {
+      padding: 120px 30px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--red);
+    }
+
+    p.description {
+      font-size: 18px;
+      margin-bottom: 40px;
+      opacity: 0.85;
+    }
+
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .member-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(192, 0, 0, 0.8);
+    }
+
+    .member-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      object-fit: cover;
+    }
+
+    .member-name {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .member-role {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    .member-link {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .member-link:hover {
+      background: darkred;
+    }
+
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      margin-top: 40px;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 5px 2px;
+      font-size: 10px;
+      border-top: 1px solid #222;
+    }
+
+    .socials i {
+      margin: 0 10px;
+      color: white;
+      transition: 0.3s;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .socials i:hover {
+      color: var(--red);
+    }
+    .join-discord-button {
+  margin-top: 30px;
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #3b0000, #ff0000);
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+.join-discord-button:hover {
+  background: linear-gradient(45deg, #ff0000, #3b0000);
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Wolf Store</div>
+    <div style="position: relative;">
+      <button id="nav-button">Menu <i class="fas fa-bars"></i></button>
+      <div id="dropdown">
+        <a href="index.html">Home</a>
+        <a href="prod.html">Product</a>
+        <a href="team.html">Team</a>
+        <a href="ab.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Wolf Team</h1>
+    <p class="description">Meet the creative minds behind the Wolf Store. Our team is here to bring your ideas to life.</p>
+
+    <div class="team">
+      <div class="member-card">
+        <img class="member-avatar" src="https://cdn.discordapp.com/avatars/1354953593756844132/d728b090b58170f554c7e65c5324c3de?size=1024" alt="Only Lol" />
+        <div class="member-name">Only Lol</div>
+        <p>User : t_5d</p>
+        <div class="member-role">Owner & Founder</div>
+        <a class="member-link" href="https://discord.com/users/1354953593756844132" target="_blank">Contact</a>
+      </div>
+      <div class="member-card">
+        <img class="member-avatar" src="https://cdn.discordapp.com/avatars/1097660562026020957/167ba8ba117c6c4e19d1e9bf102709b4?size=1024" alt="Mr Chli7a" />
+        <div class="member-name">𝑀𝑟 𝐶𝒉𝑙𝑖7𝑎</div>
+        <p>User : kzx.</p>
+        <div class="member-role">Founder</div>
+        <a class="member-link" href="https://discord.com/users/1097660562026020957" target="_blank">Contact</a>
+      </div>
+      <div class="member-card">
+        <img class="member-avatar" src="https://cdn.discordapp.com/avatars/371815207158284308/a_97fa692a489f0f88a317e83029a8c9f7?size=1024" alt="Only TooxX" />
+        <div class="member-name">𝗢𝗻𝗹𝘆 𝗧𝗼𝗼𝘅𝗫</div>
+        <p>User : teynot</p>
+        <div class="member-role">Founder</div>
+        <a class="member-link" href="https://discord.com/users/371815207158284308" target="_blank">Contact</a>
+      </div>
+    </div>
+
+    <!-- Discord Server Widget -->
+<h2 style="color: var(--red); margin-top: 60px;">Live Server Status</h2>
+<p class="description">See who is online on our Discord server.</p>
+
+<iframe src="https://discord.com/widget?id=1196318170449969283&theme=dark" width="100%" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
+<!-- Join Server Button -->
+<a href="https://discord.gg/wolf-s" target="_blank" class="join-discord-button">Join Our Discord</a>
+
+
+  </main>
+
+  <footer>
+    <div class="socials">
+      <i class="fab fa-twitter"></i>
+      <i class="fab fa-discord"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+    <p>&copy; 2025 Wolf Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('page-loaded');
+    });
+
+    const navButton = document.getElementById('nav-button');
+    const dropdown = document.getElementById('dropdown');
+
+    navButton.addEventListener('click', () => {
+      dropdown.classList.toggle('active');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (!navButton.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

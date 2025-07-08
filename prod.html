@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wolf Store - Product</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2e0fc6bd8.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --red: #ff1a1a;
+      --dark: #0b0b0b;
+      --light: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    body.page-loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      background: rgba(192, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .logo {
+      color: white;
+      font-weight: 600;
+      font-size: 24px;
+    }
+
+    #nav-button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    #nav-button:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    #dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      border-radius: 8px;
+      margin-top: 10px;
+      min-width: 150px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      display: none;
+      flex-direction: column;
+      z-index: 10000;
+    }
+
+    #dropdown.active {
+      display: flex;
+    }
+
+    #dropdown a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-bottom: 1px solid #333;
+      transition: background 0.3s;
+    }
+
+    #dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    #dropdown a:hover {
+      background: var(--red);
+    }
+
+    main {
+      padding: 120px 30px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--red);
+    }
+
+    p.description {
+      font-size: 18px;
+      margin-bottom: 40px;
+      opacity: 0.85;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(192, 0, 0, 0.8);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 150px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .product-title {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: var(--red);
+      font-size: 18px;
+    }
+
+    .product-button {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--red);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .product-button:hover {
+      background: darkred;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 5px 2px;
+      font-size: 10px;
+      border-top: 1px solid #222;
+    }
+
+    .socials i {
+      margin: 0 10px;
+      color: white;
+      transition: 0.3s;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .socials i:hover {
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Wolf Store</div>
+    <div style="position: relative;">
+      <button id="nav-button" aria-haspopup="true" aria-expanded="false">Menu <i class="fas fa-bars"></i></button>
+      <div id="dropdown" role="menu" aria-label="Main navigation">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="prod.html" role="menuitem">Product</a>
+        <a href="team.html" role="menuitem">Team</a>
+        <a href="ab.html" role="menuitem">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Our Products</h1>
+    <p class="description">Discover exclusive banners, logos, overlays, and more designed for your brand or personal style.</p>
+
+    <div class="products">
+      <div class="product-card">
+        <div class="product-image" style="background-image:url('https://cdn.discordapp.com/attachments/1372291642182205533/1392169389952077974/ddq.png?ex=686e8e47&is=686d3cc7&hm=cffaf557afd911c30b505a9cd57135afcfe6c4853674ab3ffeec5b9a6d17fc3c&');"></div>
+        <div class="product-title">Devlope</div>
+        <div class="product-desc">devlopement Bot Discord And Other A Nice Devlopement, you don't just have to head to the Wolf Store.</div>
+        <a href="https://discord.gg/kNmyBYuFHu" target="_blank" class="product-button">Open Ticket</a>
+      </div>
+      <div class="product-card">
+        <div class="product-image" style="background-image:url('https://cdn.discordapp.com/attachments/1372291642182205533/1392169389952077974/ddq.png?ex=686e8e47&is=686d3cc7&hm=cffaf557afd911c30b505a9cd57135afcfe6c4853674ab3ffeec5b9a6d17fc3c&');"></div>
+        <div class="product-title">Get Design</div>
+        <div class="product-desc">Get You prefict For Banner Logo And Other Design A Nice Designer, you don't just have to head to the Wolf Store.</div>
+        <a href="https://discord.gg/kNmyBYuFHu" target="_blank" class="product-button">Open Ticket</a>
+      </div>
+      <div class="product-card">
+        <div class="product-image" style="background-image:url('https://cdn.discordapp.com/attachments/1372291642182205533/1392169389952077974/ddq.png?ex=686e8e47&is=686d3cc7&hm=cffaf557afd911c30b505a9cd57135afcfe6c4853674ab3ffeec5b9a6d17fc3c&');"></div>
+        <div class="product-title">Nitro</div>
+        <div class="product-desc">Get the perfect nitro to decorate your account Discord, you don't just have to head to the Wolf Store.</div>
+        <a href="https://discord.gg/kNmyBYuFHu" target="_blank" class="product-button">Open Ticket</a>
+      </div>
+      <div class="product-card">
+        <div class="product-image" style="background-image:url('https://cdn.discordapp.com/attachments/1372291642182205533/1392169389952077974/ddq.png?ex=686e8e47&is=686d3cc7&hm=cffaf557afd911c30b505a9cd57135afcfe6c4853674ab3ffeec5b9a6d17fc3c&');"></div>
+        <div class="product-title">Acc Media</div>
+        <div class="product-desc">Get Instagram, YouTube and other similar accounts, you don't just have to head to the Wolf Store.</div>
+        <a href="https://discord.gg/kNmyBYuFHu" target="_blank" class="product-button">Open Ticket</a>
+      </div>
+      <div class="product-card">
+        <div class="product-image" style="background-image:url('https://cdn.discordapp.com/attachments/1372291642182205533/1392169389952077974/ddq.png?ex=686e8e47&is=686d3cc7&hm=cffaf557afd911c30b505a9cd57135afcfe6c4853674ab3ffeec5b9a6d17fc3c&');"></div>
+        <div class="product-title">Acc Games</div>
+        <div class="product-desc">If you want to get the best games on Steam, Epic, Pes and Free Fire, you don't just have to head to the Wolf Store.</div>
+        <a href="https://discord.gg/kNmyBYuFHu" target="_blank" class="product-button">Open Ticket</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="socials">
+      <i class="fab fa-twitter"></i>
+      <i class="fab fa-discord"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+    <p>&copy; 2025 Wolf Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('page-loaded');
+    });
+
+    const navButton = document.getElementById('nav-button');
+    const dropdown = document.getElementById('dropdown');
+
+    navButton.addEventListener('click', () => {
+      const expanded = navButton.getAttribute('aria-expanded') === 'true' || false;
+      navButton.setAttribute('aria-expanded', !expanded);
+      dropdown.classList.toggle('active');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (!navButton.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+        navButton.setAttribute('aria-expanded', false);
+      }
+    });
+  </script>
+
+</body>
+</html>
